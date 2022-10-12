@@ -1,4 +1,7 @@
-﻿using System.Text;
+using System.Text;
+using System.IO;
+using System.Collections.Generic;
+using System;
 
 namespace SuperDB
 {
@@ -6,8 +9,8 @@ namespace SuperDB
 	{
 		public Database(byte[] Buffer)
 		{
-			BinaryReader Reader = new(new MemoryStream(Buffer));
-			InternalDB = new();
+			BinaryReader Reader = new BinaryReader(new MemoryStream(Buffer));
+			InternalDB = new Dictionary<string, byte[]>();
 
 			while (Reader.BaseStream.Position < Reader.BaseStream.Length)
 			{
@@ -16,7 +19,7 @@ namespace SuperDB
 		}
 		public Database()
 		{
-			InternalDB = new();
+			InternalDB = new Dictionary<string, byte[]>();
 		}
 
 		#region Direct Methods
@@ -25,14 +28,14 @@ namespace SuperDB
 		{
 			if (!TryWriteString(Name, Value))
 			{
-				throw new();
+				throw new System.Exception("String write error");
 			}
 		}
 		public string ReadString(string Name)
 		{
 			if (!TryReadString(Name, out string S))
 			{
-				throw new();
+				throw new System.Exception("String read error");
 			}
 			return S;
 		}
@@ -41,14 +44,14 @@ namespace SuperDB
 		{
 			if (!TryWriteULong(Name, Value))
 			{
-				throw new();
+				throw new System.Exception("64-bit insigned number write error");
 			}
 		}
 		public ulong ReadULong(string Name)
 		{
 			if (!TryReadULong(Name, out ulong L))
 			{
-				throw new();
+				throw new System.Exception("64-bit insigned number read error");
 			}
 			return L;
 		}
@@ -57,14 +60,14 @@ namespace SuperDB
 		{
 			if (!TryWriteLong(Name, Value))
 			{
-				throw new();
+				throw new System.Exception("64-bit number write error");
 			}
 		}
 		public long ReadLong(string Name)
 		{
 			if (!TryReadLong(Name, out long L))
 			{
-				throw new();
+				throw new System.Exception("64-bit number read error");
 			}
 			return L;
 		}
@@ -73,14 +76,14 @@ namespace SuperDB
 		{
 			if (!TryWriteUInt(Name, Value))
 			{
-				throw new();
+				throw new System.Exception("32-bit unsigned number write error");
 			}
 		}
 		public uint ReadUInt(string Name)
 		{
 			if (!TryReadUInt(Name, out uint I))
 			{
-				throw new();
+				throw new System.Exception("32-bit unsigned number read error");
 			}
 			return I;
 		}
@@ -89,14 +92,14 @@ namespace SuperDB
 		{
 			if (!TryWriteInt(Name, Value))
 			{
-				throw new();
+				throw new System.Exception("32-bit number write error");
 			}
 		}
 		public int ReadInt(string Name)
 		{
 			if (!TryReadInt(Name, out int I))
 			{
-				throw new();
+				throw new System.Exception("32-bit number read error");
 			}
 			return I;
 		}
@@ -105,14 +108,14 @@ namespace SuperDB
 		{
 			if (!TryWriteUShort(Name, Value))
 			{
-				throw new();
+				throw new System.Exception("16-bit unsigned number write error");
 			}
 		}
 		public ushort ReadUShort(string Name)
 		{
 			if (!TryReadUShort(Name, out ushort S))
 			{
-				throw new();
+				throw new System.Exception("16-bit unsigned number read error");
 			}
 			return S;
 		}
@@ -121,14 +124,14 @@ namespace SuperDB
 		{
 			if (!TryWriteShort(Name, Value))
 			{
-				throw new();
+				throw new System.Exception("16-bit number write error");
 			}
 		}
 		public short ReadShort(string Name)
 		{
 			if (!TryReadShort(Name, out short S))
 			{
-				throw new();
+				throw new System.Exception("16-bit number read error");
 			}
 			return S;
 		}
@@ -137,14 +140,14 @@ namespace SuperDB
 		{
 			if (!TryWriteDouble(Name, Value))
 			{
-				throw new();
+				throw new System.Exception("64-bit floating-point number write error");
 			}
 		}
 		public double ReadDouble(string Name)
 		{
 			if (!TryReadDouble(Name, out double D))
 			{
-				throw new();
+				throw new System.Exception("64-bit floating-point number read error");
 			}
 			return D;
 		}
@@ -153,14 +156,14 @@ namespace SuperDB
 		{
 			if (!TryWriteFloat(Name, Value))
 			{
-				throw new();
+				throw new System.Exception("32-bit floating-point number write error");
 			}
 		}
 		public float ReadFloat(string Name)
 		{
 			if (!TryReadFloat(Name, out float F))
 			{
-				throw new();
+				throw new System.Exception("32-bit floating-point number read error");
 			}
 			return F;
 		}
@@ -169,14 +172,14 @@ namespace SuperDB
 		{
 			if (!TryWriteByte(Name, Value))
 			{
-				throw new();
+				throw new System.Exception("8-bit number write error");
 			}
 		}
 		public byte ReadByte(string Name)
 		{
 			if (!TryReadByte(Name, out byte B))
 			{
-				throw new();
+				throw new System.Exception("8-bit number read error");
 			}
 			return B;
 		}
@@ -185,8 +188,26 @@ namespace SuperDB
 		{
 			if (!TryRemove(Name))
 			{
-				throw new();
+				throw new System.Exception($"Cannot remove entry");
 			}
+		}
+
+
+		public void WriteObject(string Name, object Value)
+		{
+			if (!TryWriteObj(Name, Value))
+			{
+				throw new System.Exception("Object write error");
+			}
+		}
+
+		public object ReadObject(string Name)
+		{
+			if (!TryReadObj(Name, out object O))
+			{
+				throw new System.Exception("Object read error");
+			}
+			return O;
 		}
 
 		#endregion
@@ -230,12 +251,37 @@ namespace SuperDB
 		{
 			if (InternalDB.ContainsKey(Name))
 			{
-				L = BitConverter.ToUInt64(InternalDB[Name]);
+				L = BitConverter.ToUInt64(InternalDB[Name],0);
 				return true;
 			}
 			L = 0;
 			return false;
 		}
+
+
+		public bool TryWriteObj(string Name, object Value)
+		{
+			byte[] Binary = (byte[])Value;
+
+			if (!InternalDB.ContainsKey(Name))
+			{
+				InternalDB.Add(Name, Binary);
+				return true;
+			}
+			InternalDB[Name] = Binary;
+			return true;
+		}
+		public bool TryReadObj(string Name, out object O)
+		{
+			if (InternalDB.ContainsKey(Name))
+			{
+				O = InternalDB[Name];
+				return true;
+			}
+			O = 0;
+			return false;
+		}
+
 
 		public bool TryWriteLong(string Name, long Value)
 		{
@@ -253,7 +299,7 @@ namespace SuperDB
 		{
 			if (InternalDB.ContainsKey(Name))
 			{
-				L = BitConverter.ToInt64(InternalDB[Name]);
+				L = BitConverter.ToInt64(InternalDB[Name],0);
 				return true;
 			}
 			L = 0;
@@ -276,7 +322,7 @@ namespace SuperDB
 		{
 			if (InternalDB.ContainsKey(Name))
 			{
-				I = BitConverter.ToUInt32(InternalDB[Name]);
+				I = BitConverter.ToUInt32(InternalDB[Name],0);
 				return true;
 			}
 			I = 0;
@@ -299,8 +345,9 @@ namespace SuperDB
 		{
 			if (InternalDB.ContainsKey(Name))
 			{
-				I = BitConverter.ToInt32(InternalDB[Name]);
+				I = BitConverter.ToInt32(InternalDB[Name],0);
 				return true;
+
 			}
 			I = 0;
 			return false;
@@ -322,7 +369,7 @@ namespace SuperDB
 		{
 			if (InternalDB.ContainsKey(Name))
 			{
-				S = BitConverter.ToUInt16(InternalDB[Name]);
+				S = BitConverter.ToUInt16(InternalDB[Name],0);
 				return true;
 			}
 			S = 0;
@@ -345,7 +392,7 @@ namespace SuperDB
 		{
 			if (InternalDB.ContainsKey(Name))
 			{
-				S = BitConverter.ToInt16(InternalDB[Name]);
+				S = BitConverter.ToInt16(InternalDB[Name],0);
 				return true;
 			}
 			S = 0;
@@ -368,7 +415,7 @@ namespace SuperDB
 		{
 			if (InternalDB.ContainsKey(Name))
 			{
-				D = BitConverter.ToDouble(InternalDB[Name]);
+				D = BitConverter.ToDouble(InternalDB[Name],0);
 				return true;
 			}
 			D = 0;
@@ -391,7 +438,7 @@ namespace SuperDB
 		{
 			if (InternalDB.ContainsKey(Name))
 			{
-				F = BitConverter.ToSingle(InternalDB[Name]);
+				F = BitConverter.ToSingle(InternalDB[Name],0);
 				return true;
 			}
 			F = 0;
@@ -453,7 +500,7 @@ namespace SuperDB
 		/// <returns>Raw binary for the database.</returns>
 		public byte[] Export()
 		{
-			BinaryWriter Writer = new(new MemoryStream());
+			BinaryWriter Writer = new BinaryWriter(new MemoryStream());
 
 			foreach (KeyValuePair<string, byte[]> KVP in InternalDB)
 			{
