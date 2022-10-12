@@ -6,6 +6,8 @@
     <Nullable>enable</Nullable>
     <DebugType>none</DebugType>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>C:\Users\blabl\source\SuperDB\LICENSE</PackageLicenseFile>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <ItemGroup>

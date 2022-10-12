@@ -181,6 +181,14 @@ namespace SuperDB
 			return B;
 		}
 
+		public void Remove(string Name)
+		{
+			if (!TryRemove(Name))
+			{
+				throw new();
+			}
+		}
+
 		#endregion
 
 		#region Try Methods
@@ -409,6 +417,16 @@ namespace SuperDB
 			}
 			B = 0;
 			return false;
+		}
+
+		public bool TryRemove(string Name)
+		{
+			if (!InternalDB.ContainsKey(Name))
+			{
+				return false;
+			}
+			InternalDB.Remove(Name);
+			return true;
 		}
 
 		#endregion
