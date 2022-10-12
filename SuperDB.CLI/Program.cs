@@ -2,6 +2,8 @@
 
 Database DB = new();
 
+// Publsh: dotnet publish -c release --self-contained -r linux-x64
+
 while (true)
 {
 	string? Input = Console.ReadLine();
