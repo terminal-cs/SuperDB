@@ -5,7 +5,9 @@ VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuperDB", "SuperDB\SuperDB.csproj", "{454FE959-B6B3-440E-B0D7-01ED3E8C361D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperDB.CLI", "SuperDB.CLI\SuperDB.CLI.csproj", "{6654A072-CA2D-4A50-B421-84C8FC12C0D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuperDB.CLI", "SuperDB.CLI\SuperDB.CLI.csproj", "{6654A072-CA2D-4A50-B421-84C8FC12C0D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperDB.Tests", "SuperDB.Tests\SuperDB.Tests.csproj", "{02C3DEBE-0FB9-4E1A-BFCB-3958F5BF04DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{6654A072-CA2D-4A50-B421-84C8FC12C0D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6654A072-CA2D-4A50-B421-84C8FC12C0D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6654A072-CA2D-4A50-B421-84C8FC12C0D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02C3DEBE-0FB9-4E1A-BFCB-3958F5BF04DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02C3DEBE-0FB9-4E1A-BFCB-3958F5BF04DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02C3DEBE-0FB9-4E1A-BFCB-3958F5BF04DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02C3DEBE-0FB9-4E1A-BFCB-3958F5BF04DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

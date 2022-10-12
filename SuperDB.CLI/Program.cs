@@ -2,7 +2,8 @@
 
 Database DB = new();
 
-// Publsh: dotnet publish -c release --self-contained -r linux-x64
+// Publsh: dotnet publish -c release --sc -r linux-x64
+// Publsh: dotnet publish -c release --sc -r win-x64
 
 while (true)
 {
@@ -134,7 +135,7 @@ while (true)
 							Console.WriteLine("Database is not loaded.");
 							continue;
 						}
-						DB.WriteString(Split[2], Split[3]);
+						DB.WriteString(Split[2], string.Join(' ', Split[3..]));
 						break;
 					case "ulong":
 						if (DB == null)
