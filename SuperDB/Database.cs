@@ -1,7 +1,4 @@
 using System.Text;
-using System.IO;
-using System.Collections.Generic;
-using System;
 
 namespace SuperDB
 {
@@ -9,8 +6,8 @@ namespace SuperDB
 	{
 		public Database(byte[] Buffer)
 		{
-			BinaryReader Reader = new BinaryReader(new MemoryStream(Buffer));
-			InternalDB = new Dictionary<string, byte[]>();
+			BinaryReader Reader = new(new MemoryStream(Buffer));
+			InternalDB = new();
 
 			while (Reader.BaseStream.Position < Reader.BaseStream.Length)
 			{
@@ -19,7 +16,7 @@ namespace SuperDB
 		}
 		public Database()
 		{
-			InternalDB = new Dictionary<string, byte[]>();
+			InternalDB = new();
 		}
 
 		#region Direct Methods
@@ -28,14 +25,14 @@ namespace SuperDB
 		{
 			if (!TryWriteString(Name, Value))
 			{
-				throw new System.Exception("String write error");
+				throw new($"String could not be written to key '{Name}'.");
 			}
 		}
 		public string ReadString(string Name)
 		{
 			if (!TryReadString(Name, out string S))
 			{
-				throw new System.Exception("String read error");
+				throw new($"String could not be read from key '{Name}'.");
 			}
 			return S;
 		}
@@ -44,14 +41,14 @@ namespace SuperDB
 		{
 			if (!TryWriteULong(Name, Value))
 			{
-				throw new System.Exception("64-bit insigned number write error");
+				throw new($"64-bit unsigned number could not be written to key '{Name}'.");
 			}
 		}
 		public ulong ReadULong(string Name)
 		{
 			if (!TryReadULong(Name, out ulong L))
 			{
-				throw new System.Exception("64-bit insigned number read error");
+				throw new($"64-bit unsigned number could not be read from key '{Name}'.");
 			}
 			return L;
 		}
@@ -60,14 +57,14 @@ namespace SuperDB
 		{
 			if (!TryWriteLong(Name, Value))
 			{
-				throw new System.Exception("64-bit number write error");
+				throw new($"64-bit signed number could not be written to key '{Name}'.");
 			}
 		}
 		public long ReadLong(string Name)
 		{
 			if (!TryReadLong(Name, out long L))
 			{
-				throw new System.Exception("64-bit number read error");
+				throw new($"64-bit signed number could not be read from key '{Name}'.");
 			}
 			return L;
 		}
@@ -76,14 +73,14 @@ namespace SuperDB
 		{
 			if (!TryWriteUInt(Name, Value))
 			{
-				throw new System.Exception("32-bit unsigned number write error");
+				throw new($"32-bit unsigned number could not be written to key '{Name}'.");
 			}
 		}
 		public uint ReadUInt(string Name)
 		{
 			if (!TryReadUInt(Name, out uint I))
 			{
-				throw new System.Exception("32-bit unsigned number read error");
+				throw new($"32-bit unsigned number could not be read from key '{Name}'.");
 			}
 			return I;
 		}
@@ -92,14 +89,14 @@ namespace SuperDB
 		{
 			if (!TryWriteInt(Name, Value))
 			{
-				throw new System.Exception("32-bit number write error");
+				throw new($"32-bit signed number could not be written to key '{Name}'.");
 			}
 		}
 		public int ReadInt(string Name)
 		{
 			if (!TryReadInt(Name, out int I))
 			{
-				throw new System.Exception("32-bit number read error");
+				throw new($"32-bit signed number could not be read from key '{Name}'.");
 			}
 			return I;
 		}
@@ -108,14 +105,14 @@ namespace SuperDB
 		{
 			if (!TryWriteUShort(Name, Value))
 			{
-				throw new System.Exception("16-bit unsigned number write error");
+				throw new($"16-bit signed number could not be written to key '{Name}'.");
 			}
 		}
 		public ushort ReadUShort(string Name)
 		{
 			if (!TryReadUShort(Name, out ushort S))
 			{
-				throw new System.Exception("16-bit unsigned number read error");
+				throw new($"16-bit unsigned number could not be read from key '{Name}'.");
 			}
 			return S;
 		}
@@ -124,14 +121,14 @@ namespace SuperDB
 		{
 			if (!TryWriteShort(Name, Value))
 			{
-				throw new System.Exception("16-bit number write error");
+				throw new($"16-bit signed number could not be written to key '{Name}'.");
 			}
 		}
 		public short ReadShort(string Name)
 		{
 			if (!TryReadShort(Name, out short S))
 			{
-				throw new System.Exception("16-bit number read error");
+				throw new($"16-bit signed number could not be read from key '{Name}'.");
 			}
 			return S;
 		}
@@ -140,14 +137,14 @@ namespace SuperDB
 		{
 			if (!TryWriteDouble(Name, Value))
 			{
-				throw new System.Exception("64-bit floating-point number write error");
+				throw new($"64-bit signed double could not be written to key '{Name}'.");
 			}
 		}
 		public double ReadDouble(string Name)
 		{
 			if (!TryReadDouble(Name, out double D))
 			{
-				throw new System.Exception("64-bit floating-point number read error");
+				throw new($"64-bit signed double could not be read from key '{Name}'.");
 			}
 			return D;
 		}
@@ -156,14 +153,14 @@ namespace SuperDB
 		{
 			if (!TryWriteFloat(Name, Value))
 			{
-				throw new System.Exception("32-bit floating-point number write error");
+				throw new($"32-bit signed float could not be written to key '{Name}'.");
 			}
 		}
 		public float ReadFloat(string Name)
 		{
 			if (!TryReadFloat(Name, out float F))
 			{
-				throw new System.Exception("32-bit floating-point number read error");
+				throw new($"32-bit signed float could not be read from key '{Name}'.");
 			}
 			return F;
 		}
@@ -172,14 +169,14 @@ namespace SuperDB
 		{
 			if (!TryWriteByte(Name, Value))
 			{
-				throw new System.Exception("8-bit number write error");
+				throw new($"8-bit unsigned number could not be written to key '{Name}'.");
 			}
 		}
 		public byte ReadByte(string Name)
 		{
 			if (!TryReadByte(Name, out byte B))
 			{
-				throw new System.Exception("8-bit number read error");
+				throw new($"8-bit unsigned number could not be read from key '{Name}'.");
 			}
 			return B;
 		}
@@ -188,26 +185,16 @@ namespace SuperDB
 		{
 			if (!TryRemove(Name))
 			{
-				throw new System.Exception($"Cannot remove entry");
+				throw new($"Attempring to delete key '{Name}' has failed.");
 			}
 		}
-
-
-		public void WriteObject(string Name, object Value)
+		public string[] List()
 		{
-			if (!TryWriteObj(Name, Value))
+			if (!TryList(out string[] L))
 			{
-				throw new System.Exception("Object write error");
+				throw new("Attempring to list all entries has failed.");
 			}
-		}
-
-		public object ReadObject(string Name)
-		{
-			if (!TryReadObj(Name, out object O))
-			{
-				throw new System.Exception("Object read error");
-			}
-			return O;
+			return L;
 		}
 
 		#endregion
@@ -257,31 +244,6 @@ namespace SuperDB
 			L = 0;
 			return false;
 		}
-
-
-		public bool TryWriteObj(string Name, object Value)
-		{
-			byte[] Binary = (byte[])Value;
-
-			if (!InternalDB.ContainsKey(Name))
-			{
-				InternalDB.Add(Name, Binary);
-				return true;
-			}
-			InternalDB[Name] = Binary;
-			return true;
-		}
-		public bool TryReadObj(string Name, out object O)
-		{
-			if (InternalDB.ContainsKey(Name))
-			{
-				O = InternalDB[Name];
-				return true;
-			}
-			O = 0;
-			return false;
-		}
-
 
 		public bool TryWriteLong(string Name, long Value)
 		{
@@ -475,6 +437,16 @@ namespace SuperDB
 			InternalDB.Remove(Name);
 			return true;
 		}
+		public bool TryList(out string[] L)
+		{
+			L = new string[InternalDB.Count];
+			for (int I = 0; I < InternalDB.Count; I++)
+			{
+				KeyValuePair<string, byte[]> KVP = InternalDB.ElementAt(I);
+				L[I] = KVP.Key;
+			}
+			return true;
+		}
 
 		#endregion
 
@@ -500,7 +472,7 @@ namespace SuperDB
 		/// <returns>Raw binary for the database.</returns>
 		public byte[] Export()
 		{
-			BinaryWriter Writer = new BinaryWriter(new MemoryStream());
+			BinaryWriter Writer = new(new MemoryStream());
 
 			foreach (KeyValuePair<string, byte[]> KVP in InternalDB)
 			{
