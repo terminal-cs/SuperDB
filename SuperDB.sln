@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32421.90
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperDB", "SuperDB\SuperDB.csproj", "{454FE959-B6B3-440E-B0D7-01ED3E8C361D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{454FE959-B6B3-440E-B0D7-01ED3E8C361D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{454FE959-B6B3-440E-B0D7-01ED3E8C361D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{454FE959-B6B3-440E-B0D7-01ED3E8C361D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{454FE959-B6B3-440E-B0D7-01ED3E8C361D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F38F537A-04D7-43FC-BEB0-2432C3BFE09E}
+	EndGlobalSection
+EndGlobal
