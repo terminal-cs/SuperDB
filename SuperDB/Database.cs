@@ -165,6 +165,22 @@ namespace SuperDB
 			return F;
 		}
 
+		public void WriteBytes(string Name, byte[] Value)
+		{
+			if (!TryWriteBytes(Name, Value))
+			{
+				throw new($"8-bit unsigned array could not be written to key '{Name}'.");
+			}
+		}
+		public byte[] ReadBytes(string Name)
+		{
+			if (!TryReadBytes(Name, out byte[] B))
+			{
+				throw new($"8-bit unsigned array could not be read from key '{Name}'.");
+			}
+			return B;
+		}
+
 		public void WriteByte(string Name, byte Value)
 		{
 			if (!TryWriteByte(Name, Value))
@@ -404,6 +420,27 @@ namespace SuperDB
 				return true;
 			}
 			F = 0;
+			return false;
+		}
+
+		public bool TryWriteBytes(string Name, byte[] Value)
+		{
+			if (!InternalDB.ContainsKey(Name))
+			{
+				InternalDB.Add(Name, Value);
+				return true;
+			}
+			InternalDB[Name] = Value;
+			return true;
+		}
+		public bool TryReadBytes(string Name, out byte[] B)
+		{
+			if (InternalDB.ContainsKey(Name))
+			{
+				B = InternalDB[Name];
+				return true;
+			}
+			B = Array.Empty<byte>();
 			return false;
 		}
 
