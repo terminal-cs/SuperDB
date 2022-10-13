@@ -4,6 +4,16 @@ namespace SuperDB
 {
 	public class Database
 	{
+		public Database(string PathToFile)
+		{
+			BinaryReader Reader = new(new MemoryStream(File.ReadAllBytes(PathToFile)));
+			InternalDB = new();
+
+			while (Reader.BaseStream.Position < Reader.BaseStream.Length)
+			{
+				InternalDB.Add(Reader.ReadString(), Reader.ReadBytes(Reader.ReadInt32()));
+			}
+		}
 		public Database(byte[] Buffer)
 		{
 			BinaryReader Reader = new(new MemoryStream(Buffer));

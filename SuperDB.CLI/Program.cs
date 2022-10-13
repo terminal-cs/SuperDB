@@ -2,8 +2,11 @@
 
 Database DB = new();
 
-// Publsh: dotnet publish -c release --sc -r linux-x64
-// Publsh: dotnet publish -c release --sc -r win-x64
+if (args.Length > 0)
+{
+	DB = new(args[0]);
+	Console.WriteLine($"Loaded database from file '{Path.GetFileName(args[0])}' with a total of {DB.List().Length} entries.");
+}
 
 while (true)
 {
@@ -26,13 +29,13 @@ while (true)
 					continue;
 				}
 				DB.Export(Split[1]);
-				Console.WriteLine($"Saved database to '{Split[1]}'.");
+				Console.WriteLine($"Saved database to '{Path.GetFileName(Split[1])}'.");
 				break;
 			#endregion
 			#region Load
 			case "load":
-				DB = new(File.ReadAllBytes(Split[1]));
-				Console.WriteLine($"Loaded database from file '{Split[1]}'.");
+				DB = new(Split[1]);
+				Console.WriteLine($"Loaded database from file '{Path.GetFileName(Split[1])}' with a total of {DB.List().Length} entries.");
 				break;
 			#endregion
 			#region Read
@@ -254,7 +257,7 @@ while (true)
 			default:
 				Console.WriteLine($"Unrecognized command '{Split[0]}'.");
 				break;
-			#endregion
+				#endregion
 		}
 	}
 	catch (Exception E)
