@@ -207,6 +207,7 @@ namespace SuperDB
 			return B;
 		}
 
+		public uint Count => (uint)InternalDB.Count;
 		public void Remove(string Name)
 		{
 			if (!TryRemove(Name))
@@ -221,6 +222,10 @@ namespace SuperDB
 				throw new("Attempring to list all entries has failed.");
 			}
 			return L;
+		}
+		public void Clear()
+		{
+			InternalDB.Clear();
 		}
 
 		#endregion
@@ -499,7 +504,7 @@ namespace SuperDB
 
 		#region Fields
 
-		private readonly Dictionary<string, byte[]> InternalDB;
+		internal Dictionary<string, byte[]> InternalDB;
 
 		#endregion
 

@@ -5,7 +5,7 @@ Database DB = new();
 if (args.Length > 0)
 {
 	DB = new(args[0]);
-	Console.WriteLine($"Loaded database from file '{Path.GetFileName(args[0])}' with a total of {DB.List().Length} entries.");
+	Console.WriteLine($"Loaded database from file '{Path.GetFileName(args[0])}' with a total of {DB.Count} entries.");
 }
 
 while (true)
@@ -19,7 +19,7 @@ while (true)
 
 	try
 	{
-		switch (Split[0])
+		switch (Split[0].ToLower())
 		{
 			#region Export
 			case "export":
@@ -35,7 +35,7 @@ while (true)
 			#region Load
 			case "load":
 				DB = new(Split[1]);
-				Console.WriteLine($"Loaded database from file '{Path.GetFileName(Split[1])}' with a total of {DB.List().Length} entries.");
+				Console.WriteLine($"Loaded database from file '{Path.GetFileName(Split[1])}' with a total of {DB.Count} entries.");
 				break;
 			#endregion
 			#region Read
@@ -227,6 +227,18 @@ while (true)
 				}
 				DB.Remove(Split[1]);
 				Console.WriteLine($"Removed entry '{Split[1]}'.");
+				break;
+			#endregion
+			#region Clear
+			case "clear":
+				if (DB == null)
+				{
+					Console.Write("No database is loaded.");
+					continue;
+				}
+				uint T1 = DB.Count;
+				DB.Clear();
+				Console.WriteLine($"Cleared all {T1} entries from the database.");
 				break;
 			#endregion
 			#region List
