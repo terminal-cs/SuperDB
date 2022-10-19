@@ -11,6 +11,11 @@
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 		<ProduceReferenceAssembly>False</ProduceReferenceAssembly>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+
+		<PackageId>SuperDB.1.0.0</PackageId>
+		<Version>1.0.0</Version>
+		<Authors>Terminal.cs</Authors>
+		<Company>N/A</Company>
 	</PropertyGroup>
 
 	<ItemGroup>
