@@ -12,7 +12,7 @@
 		<ProduceReferenceAssembly>False</ProduceReferenceAssembly>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 
-		<PackageId>Super-DB</PackageId>
+		<PackageId>SuperDB-Core</PackageId>
 		<Description>
 			An ultra-lightweight and portable database system written in pure C# with no external dependancies.
 		</Description>
