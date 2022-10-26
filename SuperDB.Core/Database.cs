@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace SuperDB
+namespace SuperDB.Core
 {
 	public class Database
 	{
