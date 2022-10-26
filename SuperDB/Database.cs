@@ -6,6 +6,11 @@ namespace SuperDB
 	{
 		public Database(string PathToFile)
 		{
+			if (!File.Exists(PathToFile))
+			{
+				File.Create(PathToFile);
+			}
+
 			BinaryReader Reader = new(new MemoryStream(File.ReadAllBytes(PathToFile)));
 			InternalDB = new();
 
@@ -19,9 +24,12 @@ namespace SuperDB
 			BinaryReader Reader = new(new MemoryStream(Buffer));
 			InternalDB = new();
 
-			while (Reader.BaseStream.Position < Reader.BaseStream.Length)
+			if (Buffer.Length > 0)
 			{
-				InternalDB.Add(Reader.ReadString(), Reader.ReadBytes(Reader.ReadInt32()));
+				while (Reader.BaseStream.Position < Reader.BaseStream.Length)
+				{
+					InternalDB.Add(Reader.ReadString(), Reader.ReadBytes(Reader.ReadInt32()));
+				}
 			}
 		}
 		public Database()
