@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SuperDB.Core\SuperDB.Core.csproj" />
+    <ProjectReference Include="..\SuperDB\SuperDB.csproj" />
   </ItemGroup>
 
 </Project>

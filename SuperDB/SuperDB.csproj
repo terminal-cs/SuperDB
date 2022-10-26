@@ -12,8 +12,11 @@
 		<ProduceReferenceAssembly>False</ProduceReferenceAssembly>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 
-		<PackageId>SuperDB.Core</PackageId>
-		<Version>1.0.1</Version>
+		<PackageId>Super-DB</PackageId>
+		<Description>
+			An ultra-lightweight and portable database system written in pure C# with no external dependancies.
+		</Description>
+		<Version>1.0.2</Version>
 		<Authors>Terminal.cs</Authors>
 		<Company>N/A</Company>
 	</PropertyGroup>
