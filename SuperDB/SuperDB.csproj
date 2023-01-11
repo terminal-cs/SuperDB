@@ -12,13 +12,16 @@
 		<ProduceReferenceAssembly>False</ProduceReferenceAssembly>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 
-		<PackageId>SuperDB-Core</PackageId>
+		<PackageId>SuperDB</PackageId>
 		<Description>
 			An ultra-lightweight and portable database system written in pure C# with no external dependancies.
 		</Description>
-		<Version>1.0.3</Version>
+		<Version>1.0.4</Version>
 		<Authors>Terminal.cs</Authors>
 		<Company>N/A</Company>
+		<RepositoryUrl>github.com/Terminal-cs/SuperDB</RepositoryUrl>
+		<PackageProjectUrl>github.com/Terminal-cs/SuperDB</PackageProjectUrl>
+		<PackageTags>database;db;storage;game database;super db</PackageTags>
 	</PropertyGroup>
 
 	<ItemGroup>

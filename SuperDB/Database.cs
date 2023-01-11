@@ -526,6 +526,7 @@ namespace SuperDB
 		{
 			File.WriteAllBytes(PathToFile, Export());
 		}
+
 		/// <summary>
 		/// Exports all data to an array.
 		/// </summary>
